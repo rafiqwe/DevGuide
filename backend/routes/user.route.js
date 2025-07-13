@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userController = require('../controllers/user.controller')
+const userController = require("../controllers/user.controller");
 const { body } = require("express-validator");
 router.get("/", (req, res) => {
   res.send("Hello  user route from DevGuide Backend");
@@ -18,6 +18,15 @@ router.post(
       .withMessage("Password must be at least 6 characters long"),
   ],
   userController.registerUser
+);
+
+router.post("/login", [
+  body("email").isEmail().withMessage("Invalid Email"),
+  body("password")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters long"),
+],
+userController.loginUser
 );
 
 module.exports = router;
