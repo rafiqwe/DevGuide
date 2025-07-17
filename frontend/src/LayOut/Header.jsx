@@ -4,6 +4,7 @@ import { HiMenu, HiOutlineSearch, HiUserCircle, HiX } from "react-icons/hi";
 import { UserDataContext } from "../context/UserContext";
 import API from "../services/api";
 import { SearchContext } from "../context/SearchContext";
+import ThemeToggle from "../components/ThemeToggle";
 
 const Header = ({ toggleSidebar }) => {
   const [search, setSearch] = useState("");
@@ -250,6 +251,7 @@ const Header = ({ toggleSidebar }) => {
             <span>Login</span>
           </Link>
         )}
+        <ThemeToggle />
       </div>
     </header>
   );
