@@ -16,10 +16,14 @@ const UserContext = ({ children }) => {
 
   // Update localStorage when user changes
   useEffect(() => {
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    } else {
-      localStorage.removeItem("user");
+    try {
+      if (user) {
+        localStorage.setItem("user", JSON.stringify(user));
+      } else {
+        localStorage.removeItem("user");
+      }
+    } catch (error) {
+      console.error("⚠️ Failed to save user in localStorage:", error.message);
     }
   }, [user]);
 
