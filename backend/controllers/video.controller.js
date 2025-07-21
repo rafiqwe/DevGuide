@@ -106,36 +106,47 @@ module.exports.getSingleVideo = async (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
+
   const { videoId } = req.params;
   const apiKey = process.env.YOUTUBE_API_KEY;
 
   try {
+    // 1. Fetch video details
     const videoRes = await videoService.getSingleVideo({ videoId, apiKey });
+    const item = videoRes.data.items?.[0];
 
-    const item = videoRes.data.items[0];
-    const snippet = item.snippet;
-    const stats = item.statistics;
-    const Id = snippet.channelId;
+    if (!item) {
+      return res.status(404).json({ error: "Video not found" });
+    }
 
-    // get channelIcon
+    const { snippet, statistics, contentDetails } = item;
+    const channelId = snippet.channelId;
+    console.log(item);
 
-    const channelRes = await channelUtils.channelIcon({ Id, apiKey });
+    // 2. Fetch channel details
+    const channelRes = await channelUtils.channelIcon({
+      Id: channelId,
+      apiKey,
+    });
 
+    // 3. Construct response object
     const videoDetails = {
       videoId: item.id,
       title: snippet.title,
       description: snippet.description,
       channelTitle: snippet.channelTitle,
-      channelId: Id,
+      channelId,
+      thumbnail: snippet.thumbnails.high.url,
       publishedAt: snippet.publishedAt,
-      views: stats.viewCount,
-      channelIcon: channelRes.icon || "", // <-- Corrected here
-      subscribers: channelRes.subscribers || "1M+", // Optional fallback
+      views: statistics?.viewCount || 0,
+      channelIcon: channelRes.icon,
+      subscribers: channelRes.subscribers,
+      duration: parseISO8601(contentDetails.duration),
     };
 
     res.status(200).json(videoDetails);
   } catch (err) {
-    console.error("Error fetching single video", err.message);
+    console.error("Error fetching single video:", err.message);
     res.status(500).json({ error: "Failed to fetch video details" });
   }
 };
