@@ -5,7 +5,7 @@ module.exports.getSingleVideo = async ({ videoId, apiKey }) => {
       `https://www.googleapis.com/youtube/v3/videos`,
       {
         params: {
-          part: "snippet,statistics",
+          part: "snippet,statistics,contentDetails",
           id: videoId,
           key: apiKey,
         },
