@@ -1,17 +1,11 @@
 // src/layout/MainLayout.jsx
 import { useState } from "react";
-import { Outlet, useNavigation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./SideBar";
-import LoadingPage from "../pages/LoadingPage";
 
 const MainLayout = () => {
-  const navigation = useNavigation();
-  console.log(navigation);
-
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-
-  if (navigation.state === "loading") return <LoadingPage />;
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen bg-white dark:bg-[#0f0f0f] text-black dark:text-white ">
