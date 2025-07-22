@@ -231,7 +231,7 @@ const Header = ({ toggleSidebar }) => {
           type="submit"
           className="px-4 bg-gray-100 dark:bg-gray-700 border border-l-0 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-r-full"
         >
-          <HiOutlineSearch size={20} className="text-black dark:text-white" />
+          <HiOutlineSearch size={20} className="text-black cursor-pointer dark:text-white" />
         </button>
       </form>
 
