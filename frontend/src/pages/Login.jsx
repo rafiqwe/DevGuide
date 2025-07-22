@@ -23,8 +23,8 @@ const Login = () => {
       const res = await API.post("/user/login", form);
       if (res.status === 200) {
         const data = res.data;
-        setuser(data.user);
         localStorage.setItem("token", data.token);
+        setuser(data.user);
         navigate("/");
       }
     } catch (err) {
