@@ -1,20 +1,21 @@
 import { NavLink } from "react-router-dom";
 import {
   HiHome,
-  HiVideoCamera,
   HiClock,
   HiHeart,
   HiViewList,
   HiUser,
 } from "react-icons/hi";
 import { RiRoadMapFill } from "react-icons/ri";
+import { FaBookmark } from "react-icons/fa6";
+import { SiGooglegemini } from "react-icons/si";
 
 const navItems = [
   { label: "Home", icon: <HiHome />, to: "/" },
   { label: "Road Map", icon: <RiRoadMapFill />, to: "/roadmap" },
-  { label: "My Videos", icon: <HiVideoCamera />, to: "/my-videos" },
+  { label: "Bookmarks", icon: <FaBookmark />, to: "/book-marks" },
   { label: "Watch Later", icon: <HiClock />, to: "/watch-later" },
-  { label: "Liked", icon: <HiHeart />, to: "/liked" },
+  { label: "Gemini AI", icon: <SiGooglegemini />, to: "/ai" },
   { label: "Playlists", icon: <HiViewList />, to: "/playlists" },
   { label: "Profile", icon: <HiUser />, to: "/profile" },
 ];
@@ -39,7 +40,9 @@ const Sidebar = ({ isOpen }) => {
               }`
             }
           >
-            <span className="dark:text-white text-black text-[16px]">{icon}</span>
+            <span className="dark:text-white text-black text-[16px]">
+              {icon}
+            </span>
             {isOpen && <span>{label}</span>}
           </NavLink>
         ))}
