@@ -83,7 +83,6 @@ const BookMarks = () => {
       </>
     );
 
-  console.log(data);
 
   return (
     <>

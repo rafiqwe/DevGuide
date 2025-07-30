@@ -31,8 +31,6 @@ const PlaylistDetails = () => {
     fetchPlaylist();
   }, [id]);
 
-  console.log(videos);
-  console.log(isNextPage);
 
   const handleShowMoreBtn = async () => {
     try {

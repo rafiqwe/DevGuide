@@ -37,7 +37,6 @@ const Profile = () => {
         },
         responseType: "blob",
       });
-      console.log(res);
       setLoading(false);
       const blobUrl = URL.createObjectURL(res.data);
       setImageSrc(blobUrl);

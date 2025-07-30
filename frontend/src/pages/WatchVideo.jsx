@@ -85,10 +85,6 @@ const WatchVideo = () => {
           },
         }
       );
-
-      if (res.status === 201) {
-        console.log("Book Mark added:", res.data);
-      }
     } catch (error) {
       console.log("Add Book Mark error", error);
     }
