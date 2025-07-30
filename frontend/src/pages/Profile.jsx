@@ -19,8 +19,8 @@ const Profile = () => {
   const token = localStorage.getItem(`token`);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const { isPopupOpen } = usePopup(); // ✅ Call it here!
 
+  
   useEffect(() => {
     return () => {
       if (preview && preview.startsWith("blob:")) {
