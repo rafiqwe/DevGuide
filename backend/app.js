@@ -6,6 +6,7 @@ const userRoute = require("./routes/user.route");
 const bookMarkRoute = require("./routes/bookMark.route");
 const watchLaterRoute = require("./routes/watchLater.route");
 const playlistRoute = require("./routes/playlist.route");
+const homeRoutes = require("./routes/home.routes");
 
 const app = express();
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
@@ -19,6 +20,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userRoute);
+app.use("/api/home", homeRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/bookmark", bookMarkRoute);
 app.use("/api/watchlater", watchLaterRoute);
