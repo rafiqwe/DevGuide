@@ -12,6 +12,9 @@ import ErrorPage from "./pages/ErrorPage";
 import SearchResults from "./pages/SearchResults";
 import WatchVideo from "./pages/WatchVideo";
 import ProtectedWraper from "./pages/ProtectedWraper";
+import LoadingPage from "./pages/ProfileSkeleton";
+import PlaylistDetails from "./pages/PlaylistDetails";
+import BookMarks from "./pages/BookMarks";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -29,8 +32,16 @@ const App = () => {
           element: <Roadmap />,
         },
         {
+          path: "/ai",
+          element: <ComingSoon />,
+        },
+        {
           path: "/playlists",
           element: <Playlist />,
+        },
+        {
+          path: "/playlist/:id",
+          element: <PlaylistDetails />,
         },
         {
           path: "/profile",
@@ -42,7 +53,19 @@ const App = () => {
         },
         {
           path: "/watch-later",
-          element: <WatchLater />,
+          element: (
+            <ProtectedWraper>
+              <WatchLater />
+            </ProtectedWraper>
+          ),
+        },
+        {
+          path: "/book-marks",
+          element: (
+            <ProtectedWraper>
+              <BookMarks />
+            </ProtectedWraper>
+          ),
         },
         {
           path: "/results",
