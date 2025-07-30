@@ -1,11 +1,9 @@
-// src/components/VideoCard.jsx
 import { Link } from "react-router-dom";
 import "react-loading-skeleton/dist/skeleton.css";
 import { formatViews, getTimeAgo } from "../pages/SearchResults";
 
 const VideoCard = ({ video }) => {
   return (
-    // your actual card content
     <div className="w-full max-w-sm sm:max-w-[300px] md:max-w-[340px] lg:max-w-[360px] flex flex-col">
       {/* Thumbnail */}
       <Link
