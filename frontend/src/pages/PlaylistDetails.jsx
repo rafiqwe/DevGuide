@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import API from "../services/api";
 import { formatViews, getTimeAgo } from "./SearchResults";
+import { SkeletonCard } from "../components/SkeletonCard";
 
 const PlaylistDetails = () => {
   const { id } = useParams();
   const [playlist, setPlaylist] = useState(null);
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isNextPage, setIsNextPage] = useState("");
 
   useEffect(() => {
     const fetchPlaylist = async () => {
@@ -15,9 +17,10 @@ const PlaylistDetails = () => {
         const res = await API.get(`/api/playlist/list`, {
           params: { playlistId: id },
         });
-        
+
         setPlaylist(res.data);
-        setVideos(res.data);
+        setIsNextPage(res.data.nextPageToken);
+        setVideos(res.data.formatted);
         setIsLoading(false);
       } catch (err) {
         console.error("Error loading playlist:", err);
@@ -28,10 +31,38 @@ const PlaylistDetails = () => {
     fetchPlaylist();
   }, [id]);
 
+  console.log(videos);
+  console.log(isNextPage);
+
+  const handleShowMoreBtn = async () => {
+    try {
+      const res = await API.get(`/api/playlist/list`, {
+        params: { playlistId: id, pageToken: isNextPage },
+      });
+
+      // Append new videos to the existing list
+      setVideos((prev) => [...prev, ...res.data.formatted]);
+
+      // Update the nextPageToken for future loads
+      setIsNextPage(res.data.nextPageToken || "");
+    } catch (err) {
+      console.error("Error loading more videos:", err);
+    }
+  };
+
   if (isLoading) {
     return (
-      <div className="p-8 text-center text-gray-500 dark:text-gray-300">
-        Loading playlist...
+      <div
+        className="grid gap-8 
+                      grid-cols-1 
+                      sm:grid-cols-2 
+                      md:grid-cols-3 
+                      lg:grid-cols-4
+                      items-center w-full mx-auto"
+      >
+        {Array.from({ length: 8 }).map((_, i) => (
+          <SkeletonCard key={i} />
+        ))}
       </div>
     );
   }
@@ -77,16 +108,13 @@ const PlaylistDetails = () => {
       {/* Videos List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {videos.map((video) => (
-          <div
-            key={video.videoId}
-            className="bg-white dark:bg-[#1e1e1e] rounded-xl overflow-hidden shadow hover:shadow-lg transition"
-          >
+          <div className="bg-white dark:bg-[#1e1e1e] rounded-xl overflow-hidden shadow hover:shadow-lg transition">
             <Link to={`/watch/${video.videoId}`} className="block">
               <div className="relative">
                 <img
                   src={video.thumbnail}
                   alt={video.title}
-                  className="w-full h-40 object-cover transition-transform duration-300 hover:scale-105"
+                  className="w-full h-49 object-cover transition-transform duration-300 hover:scale-105"
                 />
                 <span className="absolute bottom-2 right-2 bg-black text-white text-xs rounded px-2 py-0.5 opacity-80">
                   {video.duration}
@@ -107,26 +135,18 @@ const PlaylistDetails = () => {
           </div>
         ))}
       </div>
+      {isNextPage && (
+        <div className="mt-10 flex  justify-center items-center w-full mb-5 ">
+          <button
+            onClick={handleShowMoreBtn}
+            className="bg-green-400 font-bold text-white rounded-2xl cursor-pointer py-3 px-8"
+          >
+            Show more
+          </button>
+        </div>
+      )}
     </div>
   );
 };
 
 export default PlaylistDetails;
-
-
-
-
-
-
-//  useEffect(() => {
-//     const fetchData = async () => {
-//       const res = await API.get("/api/playlist/list", {
-//         params: {
-//           playlistId: id,
-//         },
-//       });
-
-//       console.log(res.data);
-//     };
-//     fetchData();
-//   }, [id]);
