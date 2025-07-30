@@ -121,7 +121,6 @@ module.exports.getSingleVideo = async (req, res) => {
 
     const { snippet, statistics, contentDetails } = item;
     const channelId = snippet.channelId;
-    console.log(item);
 
     // 2. Fetch channel details
     const channelRes = await channelUtils.channelIcon({

@@ -5,7 +5,6 @@ module.exports.addWatchLater = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty())
     return res.status(400).json({ errors: errors.array() });
-  console.log(req.body);
 
   try {
     const watchLater = await watchLaterService.createWatchLater(
