@@ -39,3 +39,30 @@ module.exports.getPlaylists = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch watchLaters" });
   }
 };
+
+module.exports.getSinglePlayList = async (req, res) => {
+  try {
+    // 1. Validate request
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { playlistId, pageToken } = req.query;
+
+    if (!playlistId) {
+      return res.status(400).json({ message: "playlistId is required" });
+    }
+
+    // 2. Fetch playlist data from service
+    const playlistDetails = await playListService.getSinglePlayList({
+      playlistId,
+      pageToken,
+    });
+
+    res.status(200).json(playlistDetails);
+  } catch (error) {
+    console.error("Playlist controller error:", error.message);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
