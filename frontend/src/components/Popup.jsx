@@ -8,10 +8,6 @@ const Popup = () => {
     navigate(-1);
   };
 
-  const handleLogin = () => {
-    navigate("/login");
-  };
-
   return (
     <div className="min-h-full flex  items-center justify-center backdrop-blur-sm w-full bg-gradient-to-br relative  p-2">
       <motion.div
@@ -35,12 +31,14 @@ const Popup = () => {
           >
             ← Go Back
           </button>
-          <button
-            onClick={handleLogin}
+          <a
+            href="/login"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-6 py-2 rounded-xl cursor-pointer  bg-green-500 hover:bg-green-600 text-white font-semibold transition-all duration-300"
           >
             🔐 Login
-          </button>
+          </a>
         </div>
       </motion.div>
     </div>
