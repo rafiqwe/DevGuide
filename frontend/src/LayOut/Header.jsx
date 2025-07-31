@@ -191,21 +191,22 @@ const Header = ({ toggleSidebar }) => {
           >
             <HiMenu size={24} className="text-black dark:text-white" />
           </button>
-          <Link to="/" className="flex items-center space-x-1">
-            <img src="/logo.png" alt="Logo" className="h-8" />
-            <span className="text-xl font-bold text-black dark:text-white">
-              DevGuide
-            </span>
+          <Link to="/" className="flex items-center space-x-1 w-full relative">
+            {/* <img src="/logo.png" alt="Logo" className="h-8" /> */}
+            <p className=" text-xl font-bold text-black dark:text-white">
+              <span className="text-indigo-500 font-extrabold">Dev</span>Guide 
+            </p>
+            <span className=" absolute top-0 -right-9 px-[7px] py-[2px] rounded-2xl font-bold text-[10px] bg-slate-500 text-white block">Beta</span>
           </Link>
         </div>
 
         {/* Show/hide search on mobile */}
         <button
           onClick={() => setShowMobileSearch((prev) => !prev)}
-          className="sm:hidden p-2"
+          className="sm:hidden p-2 "
         >
           {showMobileSearch ? (
-            <HiX size={24} className="text-black dark:text-white" />
+            <HiX size={24} className="text-black  dark:text-white" />
           ) : (
             <HiOutlineSearch size={24} className="text-black dark:text-white" />
           )}
@@ -225,7 +226,7 @@ const Header = ({ toggleSidebar }) => {
           name="topic"
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search coding videos"
-          className="flex-grow px-4 rounded-l-full py-2 text-sm text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none transition-all duration-300"
+          className="flex-grow ml-10 px-4 rounded-l-full py-2 text-sm text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none transition-all duration-300"
         />
         <button
           type="submit"
