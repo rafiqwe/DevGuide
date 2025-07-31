@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
 import API from "../services/api";
 import { SkeletonCard } from "../components/SkeletonCard";
 import { useQuery } from "@tanstack/react-query";
