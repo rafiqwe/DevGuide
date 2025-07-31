@@ -186,20 +186,6 @@ const Register = () => {
               </button>
             </div>
 
-            {/* <motion.input
-              whileFocus={{
-                boxShadow: "0 0 6px #00FFFF, 0 0 10px #00FFFF",
-                borderColor: "#00FFFF",
-              }}
-              transition={{ duration: 0.3 }}
-              className="w-full p-3 border border-slate-300 rounded-lg bg-white/60 backdrop-blur-sm text-gray-800 placeholder-gray-500 focus:outline-none"
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            /> */}
             {error && <p className="text-red-500 text-sm">{error}</p>}
             <button
               type="submit"
