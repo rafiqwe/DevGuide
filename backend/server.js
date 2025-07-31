@@ -1,4 +1,4 @@
-// backend/server.js
+// server.js
 const http = require("http");
 const app = require("./app");
 const connectToDb = require("./config/db");
