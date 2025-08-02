@@ -59,7 +59,7 @@ const BookMarks = () => {
   if (!data || data.length === 0)
     return (
       <>
-        <div className="flex flex-col items-center  justify-center h-full p-6 text-gray-500 dark:text-gray-400">
+        <div className="flex flex-col w-full items-center  justify-center h-full p-6 text-gray-500 dark:text-gray-400">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-32 h-32 mb-6 opacity-40"
