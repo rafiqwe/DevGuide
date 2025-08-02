@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { getTimeAgo } from "./SearchResults";
 import ProtectedPage from "./ProtectedPage";
 import ProfileSkeleton from "./ProfileSkeleton";
-import { usePopup } from "../context/PopupContext";
 
 const Profile = () => {
   const { user, setuser } = useContext(UserDataContext);
@@ -18,7 +17,6 @@ const Profile = () => {
   const [imageSrc, setImageSrc] = useState(null);
   const token = localStorage.getItem(`token`);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
 
   
   useEffect(() => {
@@ -37,7 +35,6 @@ const Profile = () => {
         },
         responseType: "blob",
       });
-      setLoading(false);
       const blobUrl = URL.createObjectURL(res.data);
       setImageSrc(blobUrl);
     }
@@ -107,11 +104,11 @@ const Profile = () => {
 
   return (
     <>
-      {loading ? (
+      {/* {loading ? (
         <div className="text-center  w-full h-full ">
           <ProfileSkeleton />
         </div>
-      ) : (
+      ) : ( */}
         <div className=" w-full h-full flex flex-col items-center py-16 ">
           <div className="w-full bg-white dark:bg-[#27282F] relative rounded-3xl shadow-xl p-10">
             <div className="mb-5">
@@ -222,7 +219,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      )}
+      {/* )} */}
       <ProtectedPage />
     </>
   );
