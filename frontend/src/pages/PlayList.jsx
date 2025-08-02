@@ -42,12 +42,6 @@ const Playlist = () => {
       ? data
       : data.filter((p) => p.tags.includes(selectedTag.toLowerCase()));
 
-  if(!filteredPlaylists || filteredPlaylists.length === 0){
-    return(
-      <h1 className="flex justify-center items-center h-full">No Playlist Found</h1>
-    )
-  }
-
   return (
     <>
       {isLoading ? (
