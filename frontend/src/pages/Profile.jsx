@@ -104,7 +104,7 @@ const Profile = () => {
 
   return (
     <>
-      {/* {loading ? (
+      {/* {loading ? (  
         <div className="text-center  w-full h-full ">
           <ProfileSkeleton />
         </div>
@@ -144,7 +144,7 @@ const Profile = () => {
               >
                 <div className="flex flex-col sm:flex-row gap-6 sm:items-center w-full">
                   <div className="relative mx-auto sm:mx-0 w-32 h-32 sm:w-40 sm:h-40 rounded-full border-4 border-[#EFF3F8] dark:border-[#393A42] overflow-hidden shadow-lg bg-[#F2F6FC] dark:bg-[#2E2F38]">
-                    {preview || user?._id ? (
+                    {(preview || imageSrc) ? (
                       <img
                         src={preview || imageSrc}
                         alt="Profile"
