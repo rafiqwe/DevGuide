@@ -198,87 +198,99 @@ const Header = ({ toggleSidebar }) => {
 
   return (
     <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 py-2 bg-white dark:bg-[#0f0f0f] shadow-md sticky top-0 z-50 w-full">
-      {/* Top row: Menu + Logo + Mobile Search Toggle */}
-      <div className="flex items-center justify-between w-full sm:w-auto">
-        <div className="flex items-center space-x-4">
-          <button
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 sm:inline-block"
-            onClick={toggleSidebar}
-          >
-            <HiMenu size={24} className="text-black dark:text-white" />
-          </button>
-          <Link to="/" className="flex items-center space-x-1 w-full relative">
-            {/* <img src="/logo.png" alt="Logo" className="h-8" /> */}
-            <p className=" text-xl font-bold text-black dark:text-white">
-              <span className="text-indigo-500 font-extrabold">Dev</span>Guide
-            </p>
-            <span className=" absolute top-0 -right-9 px-[7px] py-[2px] rounded-2xl font-bold text-[10px] bg-slate-500 text-white block">
-              Beta
-            </span>
-          </Link>
-        </div>
-
-        {/* Show/hide search on mobile */}
-        <button
-          onClick={() => setShowMobileSearch((prev) => !prev)}
-          className="sm:hidden p-2 "
-        >
-          {showMobileSearch ? (
-            <HiX size={24} className="text-black  dark:text-white" />
-          ) : (
-            <HiOutlineSearch size={24} className="text-black dark:text-white" />
-          )}
-        </button>
-      </div>
-
-      {/* Search bar */}
-      <form
-        onSubmit={handleSearch}
-        className={`mt-2 sm:mt-0 sm:ml-4 sm:flex sm:flex-1 max-w-xl mx-auto ${
-          showMobileSearch ? "flex w-full mt-4" : "hidden sm:flex"
-        }`}
+      <div
+        className={`flex w-full ${
+          showMobileSearch ? "flex-col" : "flex-row"
+        } items-center justify-between`}
       >
-        <input
-          type="text"
-          value={search}
-          name="topic"
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search coding videos"
-          className="flex-grow ml-10 px-4 rounded-l-full py-2 text-sm text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none transition-all duration-300"
-        />
-        <button
-          type="submit"
-          className="px-4 bg-gray-100 dark:bg-gray-700 border border-l-0 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-r-full"
-        >
-          <HiOutlineSearch
-            size={20}
-            className="text-black cursor-pointer dark:text-white"
-          />
-        </button>
-      </form>
+        {/* Top row: Menu + Logo + Mobile Search Toggle */}
+        <div className="flex  items-center justify-between w-full sm:w-auto">
+          <div className="flex items-center space-x-4">
+            <button
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 sm:inline-block"
+              onClick={toggleSidebar}
+            >
+              <HiMenu size={24} className="text-black dark:text-white" />
+            </button>
+            <Link
+              to="/"
+              className="flex items-center space-x-1 w-full relative"
+            >
+              <p className=" text-xl font-bold text-black dark:text-white">
+                <span className="text-indigo-500 font-extrabold">Dev</span>Guide
+              </p>
+              <span className=" absolute top-0 -right-9 px-[7px] py-[2px] rounded-2xl font-bold text-[10px] bg-slate-500 text-white block">
+                Beta
+              </span>
+            </Link>
+          </div>
 
-      {/* Right: User Info */}
-      <div className="hidden sm:flex items-center space-x-4 text-black dark:text-white capitalize ml-auto">
-        {user ? (
-          <Link to="/profile" className="hover:underline">
-            {imageSrc && (
-              <img
-                src={imageSrc}
-                alt="User Avatar"
-                className="w-8 h-8 rounded-full"
+          {/* Show/hide search on mobile */}
+          <button
+            onClick={() => setShowMobileSearch((prev) => !prev)}
+            className="sm:hidden p-2 "
+          >
+            {showMobileSearch ? (
+              <HiX size={24} className="text-black  dark:text-white" />
+            ) : (
+              <HiOutlineSearch
+                size={24}
+                className="text-black dark:text-white"
               />
             )}
-          </Link>
-        ) : (
-          <Link
-            to="/login"
-            className="flex items-center space-x-1 hover:underline hover:text-cyan-400"
+          </button>
+        </div>
+        {/* Search bar */}
+        <form
+          onSubmit={handleSearch}
+          className={`mt-2 sm:mt-0 sm:ml-4 sm:flex sm:flex-1 max-w-xl mx-auto ${
+            showMobileSearch ? "flex w-full mt-4" : "hidden sm:flex"
+          }`}
+        >
+          <input
+            type="text"
+            value={search}
+            name="topic"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search coding videos"
+            className="flex-grow ml-10 px-4 rounded-l-full py-2 text-sm text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:outline-none transition-all duration-300"
+          />
+          <button
+            type="submit"
+            className="px-4 bg-gray-100 dark:bg-gray-700 border border-l-0 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-r-full"
           >
-            <HiUserCircle size={26} />
-            <span>Login</span>
-          </Link>
-        )}
-        <ThemeToggle />
+            <HiOutlineSearch
+              size={20}
+              className="text-black cursor-pointer dark:text-white"
+            />
+          </button>
+        </form>
+
+        {/* Right: User Info */}
+        <div className="hidden sm:flex items-center space-x-4 text-black dark:text-white capitalize ml-auto">
+          {user ? (
+            <Link to="/profile" className="hover:underline">
+              {imageSrc && (
+                <img
+                  src={imageSrc}
+                  alt="User Avatar"
+                  className="w-8 h-8 rounded-full"
+                />
+              )}
+            </Link>
+          ) : (
+            <Link
+              to="/login"
+              className="flex items-center space-x-1 hover:underline hover:text-cyan-400"
+            >
+              <HiUserCircle size={26} />
+              <span>Login</span>
+            </Link>
+          )}
+        </div>
+        <div className={`relative ${showMobileSearch ? "hidden" : "block"} ml-2`}>
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

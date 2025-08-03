@@ -1,11 +1,5 @@
 import { NavLink } from "react-router-dom";
-import {
-  HiHome,
-  HiClock,
-  HiHeart,
-  HiViewList,
-  HiUser,
-} from "react-icons/hi";
+import { HiHome, HiClock, HiHeart, HiViewList, HiUser } from "react-icons/hi";
 import { RiRoadMapFill } from "react-icons/ri";
 import { FaBookmark } from "react-icons/fa6";
 import { SiGooglegemini } from "react-icons/si";
@@ -20,7 +14,7 @@ const navItems = [
   { label: "Profile", icon: <HiUser />, to: "/profile" },
 ];
 
-const Sidebar = ({ isOpen }) => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   return (
     <aside
       className={`h-screen sticky top-0 left-0 bg-white dark:bg-[#0f0f0f] border-r border-gray-200 dark:border-gray-800 px-2 py-6 overflow-y-auto transition-all duration-300  ${
@@ -32,6 +26,7 @@ const Sidebar = ({ isOpen }) => {
           <NavLink
             key={label}
             to={to}
+            onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               `flex items-center space-x-3 px-3 py-2 rounded-lg transition-all ${
                 isActive
