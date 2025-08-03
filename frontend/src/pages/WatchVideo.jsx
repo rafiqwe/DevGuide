@@ -1,5 +1,5 @@
 // src/pages/WatchVideo.jsx
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import { formatViews, getTimeAgo } from "./SearchResults";
@@ -22,10 +22,9 @@ const WatchVideo = () => {
       console.error("Error fetching video details:", err);
     }
   };
-  fetchVideo();
 
   const { data } = useQuery({
-    queryKey: ["getSingleVideo"],
+    queryKey: ["getSingleVideo", videoId],
     queryFn: fetchVideo,
   });
 
@@ -60,7 +59,7 @@ const WatchVideo = () => {
 
       if (res.status === 201) {
         setShowPopup(true);
-        setTimeout(() => setShowPopup(false), 3000); // Hide after 3s
+        setTimeout(() => setShowPopup(false), 3000);
       }
     } catch (error) {
       console.log("Add WatchLater error", error);
@@ -92,7 +91,7 @@ const WatchVideo = () => {
 
   if (!video) {
     return (
-      <div className="w-full ">
+      <div className="w-full">
         <VideoSkeleton />
       </div>
     );
@@ -100,9 +99,9 @@ const WatchVideo = () => {
 
   return (
     <>
-      <div className="px-4 sm:px-6 mt-7 mb-90 md:px-8 max-w-6xl h-screen mx-auto">
-        {/* Video player */}
-        <div className="aspect-video w-full rounded-xl overflow-hidden shadow-lg mb-6">
+      <div className="px-4 sm:px-6 md:px-8 mt-6 max-w-6xl mx-auto w-full ">
+        {/* Video Player */}
+        <div className="aspect-video w-full rounded-xl overflow-hidden shadow mb-6">
           <iframe
             className="w-full h-full"
             src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
@@ -113,31 +112,31 @@ const WatchVideo = () => {
           />
         </div>
 
-        {/* Title + Actions */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold dark:text-white">
+        {/* Title + Action Buttons */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-semibold dark:text-white">
             {video.title}
           </h1>
-          <div className="flex gap-4">
+          <div className="flex gap-3">
             <button
               title="Watch Later"
-              className="p-2 rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
               onClick={handleAddWatchLater}
             >
-              <HiClock className="text-xl  text-gray-700 dark:text-white" />
+              <HiClock className="text-xl text-gray-700 dark:text-white" />
             </button>
             <button
               title="Bookmark"
               onClick={handleBookMark}
-              className="p-2 rounded-full cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
             >
               <FaBookmark className="text-xl text-gray-700 dark:text-white" />
             </button>
           </div>
         </div>
 
-        {/* Channel + Stats */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        {/* Channel Info + Stats */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
           <a
             href={`https://www.youtube.com/channel/${video.channelId}`}
             target="_blank"
@@ -166,26 +165,33 @@ const WatchVideo = () => {
           </div>
         </div>
 
-        {/* Description */}
-        <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg transition-all mb-10">
+        {/* {} /* Description */}
+        <div className="bg-gray-100 dark:bg-gray-800 px-3 sm:px-4 py-3 rounded-lg mb-12 w-full transition-all">
           <p
-            className={`text-gray-700 dark:text-gray-200 whitespace-pre-wrap transition-all duration-300 ${
-              seeMore ? "" : "line-clamp-3"
+            className={`text-sm sm:text-base text-gray-700 dark:text-gray-200 whitespace-pre-wrap break-words transition-all duration-300 ease-in-out ${
+              seeMore ? "max-h-[100%]" : "line-clamp-3"
             }`}
+            style={{ wordBreak: "break-word" }}
           >
             {video.description}
           </p>
-          <button
-            onClick={() => setSeeMore((prev) => !prev)}
-            className="mt-3 text-sm text-blue-600 dark:text-blue-400 hover:underline"
-          >
-            {seeMore ? "Show less" : "Show more"}
-          </button>
+
+          {/* Show toggle only if long text */}
+          {video.description.length > 150 && (
+            <div className="mt-2 flex justify-end">
+              <button
+                onClick={() => setSeeMore((prev) => !prev)}
+                className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline focus:outline-none"
+              >
+                {seeMore ? "Show less" : "Show more"}
+              </button>
+            </div>
+          )}
         </div>
       </div>
       {showPopup && (
         <div className="fixed top-20 right-6 z-50">
-          <div className="bg-green-600 text-white px-4 py-2 rounded-lg shadow-lg animate-slide-in-out">
+          <div className="bg-green-600 text-white px-4 py-2 rounded-lg shadow animate-slide-in-out">
             ✅ Added to Watch Later
           </div>
         </div>
