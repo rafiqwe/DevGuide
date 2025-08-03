@@ -15,7 +15,7 @@ const MainLayout = () => {
       <div className="flex-1 flex flex-col">
         <Header toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
         <main className="px-4 flex-1 flex gap-3  h-auto overflow-auto  bg-white dark:bg-[#0f0f0f] text-black dark:text-white scrollbar-hide ">
-          <Sidebar isOpen={isSidebarOpen} />
+          <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
           <Outlet />
         </main>
       </div>
