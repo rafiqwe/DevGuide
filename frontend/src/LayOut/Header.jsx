@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMenu, HiOutlineSearch, HiUserCircle, HiX } from "react-icons/hi";
 import { UserDataContext } from "../context/UserContext";
@@ -12,6 +12,7 @@ const Header = ({ toggleSidebar }) => {
   const navigate = useNavigate();
   const { user } = useContext(UserDataContext);
   const { setSearchResults } = useContext(SearchContext);
+  const [imageSrc, setImageSrc] = useState(null);
 
   // ✅ Define allowed coding-related keywords
   const codingKeywords = [
@@ -151,6 +152,21 @@ const Header = ({ toggleSidebar }) => {
     "mobile dev",
   ];
 
+  useEffect(() => {
+    async function response() {
+      const res = await API.get(`/user/profile-image`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        responseType: "blob",
+      });
+      const blobUrl = URL.createObjectURL(res.data);
+      setImageSrc(blobUrl);
+    }
+
+    response();
+  }, []);
+
   const isCodingTopic = (query) => {
     const lowerQuery = query.toLowerCase();
     return codingKeywords.some((keyword) => lowerQuery.includes(keyword));
@@ -194,9 +210,11 @@ const Header = ({ toggleSidebar }) => {
           <Link to="/" className="flex items-center space-x-1 w-full relative">
             {/* <img src="/logo.png" alt="Logo" className="h-8" /> */}
             <p className=" text-xl font-bold text-black dark:text-white">
-              <span className="text-indigo-500 font-extrabold">Dev</span>Guide 
+              <span className="text-indigo-500 font-extrabold">Dev</span>Guide
             </p>
-            <span className=" absolute top-0 -right-9 px-[7px] py-[2px] rounded-2xl font-bold text-[10px] bg-slate-500 text-white block">Beta</span>
+            <span className=" absolute top-0 -right-9 px-[7px] py-[2px] rounded-2xl font-bold text-[10px] bg-slate-500 text-white block">
+              Beta
+            </span>
           </Link>
         </div>
 
@@ -232,7 +250,10 @@ const Header = ({ toggleSidebar }) => {
           type="submit"
           className="px-4 bg-gray-100 dark:bg-gray-700 border border-l-0 border-gray-300 dark:border-gray-600 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-r-full"
         >
-          <HiOutlineSearch size={20} className="text-black cursor-pointer dark:text-white" />
+          <HiOutlineSearch
+            size={20}
+            className="text-black cursor-pointer dark:text-white"
+          />
         </button>
       </form>
 
@@ -240,8 +261,13 @@ const Header = ({ toggleSidebar }) => {
       <div className="hidden sm:flex items-center space-x-4 text-black dark:text-white capitalize ml-auto">
         {user ? (
           <Link to="/profile" className="hover:underline">
-            <span>Hello 👋 </span>
-            {user?.fullname?.firstname + " " + user?.fullname?.lastname}
+            {imageSrc && (
+              <img
+                src={imageSrc}
+                alt="User Avatar"
+                className="w-8 h-8 rounded-full"
+              />
+            )}
           </Link>
         ) : (
           <Link
