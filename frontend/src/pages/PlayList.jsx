@@ -35,8 +35,6 @@ const Playlist = () => {
     queryFn: getPlaylists,
   });
 
-
-
   const filteredPlaylists =
     selectedTag === "all"
       ? data
@@ -59,7 +57,7 @@ const Playlist = () => {
         </div>
       ) : (
         <motion.div
-          className="p-4 dark:bg-[#0f0f0f] w-full bg-white min-h-[calc(100vh-64px)]"
+          className="p-4 dark:bg-[#0f0f0f] w-full  bg-white min-h-[calc(100vh-64px)]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.4 }}
@@ -106,31 +104,51 @@ const Playlist = () => {
           </div>
 
           {/* Filtered Playlists */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredPlaylists.map((playlist) => (
-              <Link
-                key={playlist.playlistId}
-                to={`/playlist/${playlist.playlistId}`}
-                className="bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
-              >
-                <img
-                  src={playlist.thumbnail}
-                  alt={playlist.title}
-                  className="w-full aspect-video object-cover"
-                />
-                <div className="p-4">
-                  <h2 className="text-lg font-medium text-black dark:text-white">
-                    {playlist.title}
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-                    {playlist.description}
-                  </p>
-                  <span className="text-xs text-gray-500 dark:text-gray-400 block mt-2">
-                    🎥 {playlist.channelTitle}
-                  </span>
-                </div>
-              </Link>
-            ))}
+          <div
+            className={` ${
+              !filteredPlaylists
+                ? "flex items-center justify-center"
+                : " grid gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full"
+            }`}
+          >
+            {filteredPlaylists ? (
+              filteredPlaylists.map((playlist) => (
+                <Link
+                  key={playlist.playlistId}
+                  to={`/playlist/${playlist.playlistId}`}
+                  className="bg-white dark:bg-gray-900 border dark:border-gray-700 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+                >
+                  <img
+                    src={playlist.thumbnail}
+                    alt={playlist.title}
+                    className="w-full aspect-video object-cover"
+                  />
+                  <div className="p-4">
+                    <h2 className="text-lg font-medium text-black dark:text-white">
+                      {playlist.title}
+                    </h2>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
+                      {playlist.description}
+                    </p>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 block mt-2">
+                      🎥 {playlist.channelTitle}
+                    </span>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="text-2xl flex items-center mt-10 justify-center mx-auto w-full h-full">
+                <p
+                  className="font-bold 
+                bg-[linear-gradient(97deg,#0096FF,#BB64FF_42%,#F2416B_74%,#EB7500)] 
+                bg-clip-text text-transparent 
+                drop-shadow-[0_0_12px_rgba(187,100,255,0.8)] 
+                animate-pulse"
+                >
+                  Sorry, Playlist is not available — we’ll add it soon ✨
+                </p>
+              </div>
+            )}
           </div>
         </motion.div>
       )}
