@@ -16,33 +16,57 @@ const navItems = [
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   return (
-    <aside
-      className={`h-screen sticky top-0 left-0 bg-white dark:bg-[#0f0f0f] border-r border-gray-200 dark:border-gray-800 px-2 py-6 overflow-y-auto transition-all duration-300  ${
-        isOpen ? "w-60" : "w-16"
-      }`}
-    >
-      <nav className="space-y-2">
+    <>
+      {/* Desktop Sidebar */}
+      <aside
+        className={`hidden md:block h-screen sticky top-0 left-0 bg-white dark:bg-[#0f0f0f] border-r border-gray-200 dark:border-gray-800 px-2 py-6 overflow-y-auto transition-all duration-300 ${
+          isOpen ? "w-60" : "w-16"
+        }`}
+      >
+        <nav className="space-y-2">
+          {navItems.map(({ label, icon, to }) => (
+            <NavLink
+              key={label}
+              to={to}
+              onClick={() => setIsOpen(false)}
+              className={({ isActive }) =>
+                `flex items-center space-x-3 px-3 py-2 rounded-lg transition-all ${
+                  isActive
+                    ? "bg-gray-200 dark:bg-gray-700 text-black dark:text-white font-semibold"
+                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                }`
+              }
+            >
+              <span className="dark:text-white text-black text-[16px]">
+                {icon}
+              </span>
+              {isOpen && <span>{label}</span>}
+            </NavLink>
+          ))}
+        </nav>
+      </aside>
+
+      {/* Mobile Bottom Nav */}
+      <nav className="fixed bottom-4 z-100  w-[95%] rounded-4xl  bg-white dark:bg-[#0f0f0f] border border-gray-200 dark:border-gray-800 flex justify-around items-center py-2 md:hidden">
         {navItems.map(({ label, icon, to }) => (
           <NavLink
             key={label}
             to={to}
-            onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
-              `flex items-center space-x-3 px-3 py-2 rounded-lg transition-all ${
+              `flex flex-col items-center text-sm ${
                 isActive
-                  ? "bg-gray-200 dark:bg-gray-700 text-black dark:text-white font-semibold"
-                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  ? "text-black dark:text-white"
+                  : "text-gray-600 dark:text-gray-300"
               }`
             }
           >
-            <span className="dark:text-white text-black text-[16px]">
-              {icon}
-            </span>
-            {isOpen && <span>{label}</span>}
+            <span className="text-xl ">{icon}</span>
+            {/* Optional: show label on mobile (tiny) */}
+            {/* <span className="text-[10px]">{label}</span> */}
           </NavLink>
         ))}
       </nav>
-    </aside>
+    </>
   );
 };
 

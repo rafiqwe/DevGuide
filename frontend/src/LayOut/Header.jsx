@@ -207,7 +207,7 @@ const Header = ({ toggleSidebar }) => {
         <div className="flex  items-center justify-between w-full sm:w-auto">
           <div className="flex items-center space-x-4">
             <button
-              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 sm:inline-block"
+              className="p-2 hidden  rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 md:inline-block"
               onClick={toggleSidebar}
             >
               <HiMenu size={24} className="text-black dark:text-white" />
