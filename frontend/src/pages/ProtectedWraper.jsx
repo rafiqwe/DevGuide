@@ -27,7 +27,6 @@ const ProtectedWraper = ({ children }) => {
             },
           }
         );
-
         if (res.status === 200) {
           setuser(res.data);
         }
