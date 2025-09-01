@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import API from "../services/api";
 import { SkeletonCard } from "../components/SkeletonCard";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from "react-helmet-async";
 
 const tags = [
   "all",
@@ -42,6 +43,17 @@ const Playlist = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Playlists - Video Platform Devguide</title>
+        <meta
+          name="description"
+          content="Explore a variety of coding playlists on Video Platform Devguide, designed to enhance your programming skills."
+        />
+        <meta
+          name="keywords"
+          content="devguide, coding video platform, coding playlists, programming video content, Fullstack home page, coding video streaming, online coding videos, video library"
+        />
+      </Helmet>
       {isLoading ? (
         <div
           className="grid gap-8 
