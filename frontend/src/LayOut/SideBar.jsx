@@ -47,7 +47,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       </aside>
 
       {/* Mobile Bottom Nav */}
-      <nav className="fixed bottom-4 z-100  w-[95%] rounded-4xl  bg-white dark:bg-[#0f0f0f] border border-gray-200 dark:border-gray-800 flex justify-around items-center py-2 md:hidden">
+      <nav className="absolute bottom-4 z-100  w-[90%] rounded-4xl  bg-white dark:bg-[#0f0f0f] border border-gray-200 dark:border-gray-800 flex justify-around items-center py-2 md:hidden">
         {navItems.map(({ label, icon, to }) => (
           <NavLink
             key={label}
