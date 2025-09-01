@@ -41,6 +41,7 @@ import ReactFlow, {
 import { motion } from "framer-motion";
 import { Tooltip } from "react-tooltip";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const nodeBaseStyle = {
   padding: "10px 15px",
@@ -210,66 +211,79 @@ const Roadmap = () => {
   );
 
   return (
-    <motion.div
-      className="w-full  p-2 md:p-2 dark:bg-[#0f0f0f] bg-white "
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="flex items-center justify-center flex-col mb-6 gap-2">
-        <h1 className="text-3xl font-bold  mb-3 mt-8 text-center text-black dark:text-white">
-          FullStack Developer Roadmap 🚀
-        </h1>
-        <Link
-          className="px-10 py-3 rounded-xl border border-slate-400 hover:bg-slate-800 hover:text-gray-100 transition-colors translate-2 font-bold"
-          to={"/playlists"}
-        >
-          Learn FullStack
-        </Link>
-      </div>
-      <div className="mb-4 flex flex-wrap gap-2 justify-center">
-        {["all", "frontend", "backend", "tools"].map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={`px-10 py-3 border-slate-400 cursor-pointer rounded-xl font-bold text-sm border ${
-              filter === f
-                ? "bg-blue-600 text-white border-slate-400"
-                : "bg-white dark:bg-gray-800 text-black  hover:bg-slate-800 dark:text-white"
-            } transition`}
+    <>
+      <Helmet>
+        <title>Road Map - DevGuide</title>
+        <meta
+          name="description"
+          content="Road map page of  Devguide, showcasing the learning path for aspiring developers."
+        />
+        <meta
+          name="keywords"
+          content=" coding video platform, coding playlists, programming video content,Fullstack home page, coding video streaming, online coding videos, video library"
+        />
+      </Helmet>
+      <motion.div
+        className="w-full  p-2 md:p-2 dark:bg-[#0f0f0f] bg-white "
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="flex items-center justify-center flex-col mb-6 gap-2">
+          <h1 className="text-3xl font-bold  mb-3 mt-8 text-center text-black dark:text-white">
+            FullStack Developer Roadmap 🚀
+          </h1>
+          <Link
+            className="px-10 py-3 rounded-xl border border-slate-400 hover:bg-slate-800 hover:text-gray-100 transition-colors translate-2 font-bold"
+            to={"/playlists"}
           >
-            {f.charAt(0).toUpperCase() + f.slice(1)}
-          </button>
-        ))}
-      </div>
-      <div className="w-full h-full border-2 border-slate-400 dark:border-gray-700 rounded-lg">
-        <ReactFlow
-          nodes={filteredNodes}
-          edges={filteredEdges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          fitView
-        >
-          <Background color="#aaa" gap={16} />
-          <Controls />
-          <div
-            style={{
-              position: "absolute",
-              top: 10,
-              left: 10,
-              padding: "6px 10px",
-              background: "rgba(255,255,255,0.85)",
-              borderRadius: 8,
-              fontSize: 12,
-              fontWeight: 500,
-              zIndex: 10,
-            }}
+            Learn FullStack
+          </Link>
+        </div>
+        <div className="mb-4 flex flex-wrap gap-2 justify-center">
+          {["all", "frontend", "backend", "tools"].map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`px-10 py-3 border-slate-400 cursor-pointer rounded-xl font-bold text-sm border ${
+                filter === f
+                  ? "bg-blue-600 text-white border-slate-400"
+                  : "bg-white dark:bg-gray-800 text-black  hover:bg-slate-800 dark:text-white"
+              } transition`}
+            >
+              {f.charAt(0).toUpperCase() + f.slice(1)}
+            </button>
+          ))}
+        </div>
+        <div className="w-full h-full border-2 border-slate-400 dark:border-gray-700 rounded-lg">
+          <ReactFlow
+            nodes={filteredNodes}
+            edges={filteredEdges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            fitView
           >
-            🌐 Frontend | 🛠️ Backend | 🚢 Deployment
-          </div>
-        </ReactFlow>
-      </div>
-    </motion.div>
+            <Background color="#aaa" gap={16} />
+            <Controls />
+            <div
+              style={{
+                position: "absolute",
+                top: 10,
+                left: 10,
+                padding: "6px 10px",
+                background: "rgba(255,255,255,0.85)",
+                borderRadius: 8,
+                fontSize: 12,
+                fontWeight: 500,
+                zIndex: 10,
+              }}
+            >
+              🌐 Frontend | 🛠️ Backend | 🚢 Deployment
+            </div>
+          </ReactFlow>
+        </div>
+      </motion.div>
+    </>
   );
 };
 
