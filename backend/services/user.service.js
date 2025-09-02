@@ -22,6 +22,5 @@ module.exports.createUser = async ({
     return user;
   } catch (error) {
     console.error("Error registering user:", err);
-    res.status(500).json({ message: "Internal Server Error" });
   }
 };
