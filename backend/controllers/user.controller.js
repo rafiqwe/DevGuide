@@ -29,8 +29,8 @@ module.exports.registerUser = async (req, res) => {
 
     res.status(201).json({ token, user });
   } catch (error) {
-    console.error("Error registering user:", err);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error("Error registering user:", error);
+    res.status(500).json({ message: "Internal Server Error", Error: error.message });
   }
 };
 
