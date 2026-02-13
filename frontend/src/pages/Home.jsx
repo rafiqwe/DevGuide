@@ -20,13 +20,13 @@ const Home = () => {
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["playlists"],
+    queryKey: ["Home"],
     queryFn: getHomeData,
   });
 
   useEffect(() => {
     setSearchResults([]);
-    localStorage.removeItem("searchResults"); // ✅ Clear only on Home
+    localStorage.removeItem("searchResults");
   }, [setSearchResults]);
 
   if (isLoading) {
