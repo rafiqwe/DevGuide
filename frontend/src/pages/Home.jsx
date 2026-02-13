@@ -6,22 +6,19 @@ import API from "../services/api";
 import { SkeletonCard } from "../components/SkeletonCard";
 import { Helmet } from "react-helmet-async";
 
+const getHomeData = async () => {
+  const res = await API.get("/api/home");
+  return res.data;
+};
+
 const Home = () => {
   const { setSearchResults } = useContext(SearchContext);
-
-  const getHomeData = async () => {
-    try {
-      const res = await API.get("/api/home");
-      return res.data;
-    } catch (error) {
-      console.log("Home page fatching error:", error.message);
-      throw new Error({ message: "Home page error" });
-    }
-  };
 
   const { data, isLoading } = useQuery({
     queryKey: ["Home"],
     queryFn: getHomeData,
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 15,
   });
 
   useEffect(() => {
@@ -31,14 +28,7 @@ const Home = () => {
 
   if (isLoading) {
     return (
-      <div
-        className="grid gap-8 
-                grid-cols-1 
-                sm:grid-cols-2 
-                md:grid-cols-3 
-                lg:grid-cols-4
-                items-center w-full mx-auto"
-      >
+      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-center w-full mx-auto">
         {Array.from({ length: 8 }).map((_, i) => (
           <SkeletonCard key={i} />
         ))}
@@ -50,14 +40,6 @@ const Home = () => {
     <>
       <Helmet>
         <title>Home - Video Platform Devguide</title>
-        <meta
-          name="description"
-          content="Home page of Video Platform Devguide, showcasing a variety of video playlists and content for users to explore."
-        />
-        <meta
-          name="keywords"
-          content=" coding video platform, coding playlists, programming video content,Fullstack home page, coding video streaming, online coding videos, video library"
-        />
       </Helmet>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 mt-6 p-4">
         {data?.map((video, idx) => (
