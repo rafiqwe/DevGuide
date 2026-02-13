@@ -34,6 +34,8 @@ const Playlist = () => {
   const { data, isLoading } = useQuery({
     queryKey: ["playlists"],
     queryFn: getPlaylists,
+    staleTime: 1000 * 60 * 10,
+    gcTime: 1000 * 60 * 15,
   });
 
   const filteredPlaylists =
